@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <h:form id="form" style="margin-left: 500px; margin-top: 150px">
+            <p:fieldset legend="Détails et modification" style="margin-bottom:20px; margin-right: 500px; background-color: #ecf0f1">
+                <p:commandButton value="Avatar" type="button" onclick="PF('dlgAvatar').show();" style="margin-left: 455px"/>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <br></br>
+                    <p:graphicImage name="#{loginController.usr.image}" title="#{image}" value="#{userController.image}" height="200" width="200"/>
+                    <h:outputLabel for="nom" value="Nom:" style="font-weight:bold"/>
+                    <p:inplace id="nom" editor="true">
+                        <p:inputText value="#{loginController.usr.name}" required="true" label="text" onchange="#{editUserController.usr.name}"/>
+                    </p:inplace>
+                    <h:outputLabel for="prenom" value="Prénom:" style="font-weight:bold"/>
+                    <p:inplace id="prenom" editor="true">
+                        <p:inputText value="#{loginController.usr.firstName}" required="true" label="text" onchange="#{editUserController.usr.firstName}"/>
+                    </p:inplace>
+                    <h:outputLabel for="email" value="Email:" style="font-weight:bold"/>
+                    <p:inplace id="email" editor="true">
+                        <p:inputText value="#{loginController.usr.email}" required="true" label="text" onchange="#{editUserController.usr.email}"/>
+                    </p:inplace>
+                    <h:outputLabel for="login" value="Nom de compte :" style="font-weight:bold"/>
+                    <p:inplace id="login" editor="true">
+                        <p:inputText value="#{loginController.usr.login}" required="true" label="text" onchange="#{editUserController.usr.login}"/>
+                    </p:inplace>
+                    <h:outputText value="Nombre de comptes : " style="font-weight:bold"/>
+                    <h:outputText value="#{bankAccountController.accounts.size()}" />
+                    <h:outputText value="Total d'argent : " style="font-weight:bold"/>
+                    <h:outputText value="#{bankAccountController.totalBalance}#{bankAccountController.currency}"/>
+                    <p:commandButton value="Valider" update="growl" ajax="true" actionListener="#{editUserController.editUser}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="margin-left: 200px"/>
+                </h:panelGrid>
+            </p:fieldset>
+        </h:form>  
+        <h:form>
+            <p:growl id="growl" sticky="false" showDetail="true" life="3000"/>
+            <h:panelGrid columns="1" cellpadding="5">
+                <p:dialog header="Choix d'avatar" widgetVar="dlgAvatar" showEffect="puff" hideEffect="puff" height="200" width="1000" resizable="false" position="450,650">
+                    <p:ring id="ring1" value="#{imagesView.images}" var="image">
+                        <p:commandButton styleClass="ui-confirmdialog-yes" title="View" style="width: 100px" icon="ui-icon-check" onclick="PF('dlgAvatar').hide();">
+                            <p:graphicImage id="img" name="images/avatars/#{image}" width="100" height="100" value="#{loginController.usr.image}"/>
+                            <f:setPropertyActionListener value="#{image}" target="#{loginController.usr.image}" />
+                        </p:commandButton>
+                    </p:ring>
+                </p:dialog>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

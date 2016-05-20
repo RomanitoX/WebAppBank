@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <title>Détails du compte - Gestion de compte bancaire</title>
+        </h:head>
+
+        <h:body style="background-color: #27ae60">
+            <p:growl id="growl" sticky="false" showDetail="true" life="3000"/>
+            <h:form>
+                <p:layout fullPage="true">
+
+                    <p:layoutUnit position="north" size="60" resizable="false" closable="true" collapsible="true">
+                        <ui:include src = "template/commonHeader.xhtml"/>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="west" size="245" >
+                        <ui:include src="template/commonLayout.xhtml"/>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        <ui:include src="template/commonUserDetails.xhtml"/>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="south" size="40">
+                        <ui:include src="template/commonFooter.xhtml"/>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+

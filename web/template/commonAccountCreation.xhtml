@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <style type="text/css">
+            .ui-steps .ui-steps-item {
+                width: 24%;
+            }
+
+            .ui-state-highlight {
+                text-shadow: none !important;
+            }
+
+            .ui-steps.custom {
+                margin-bottom: 30px;
+            }
+
+            .ui-steps.custom .ui-steps-item .ui-menuitem-link {
+                height: 10px;
+                padding: 0 1em;
+            }
+
+            .ui-steps.custom .ui-steps-item .ui-steps-number {
+                background-color: #0081c2;
+                color: #FFFFFF;
+                display: inline-block;
+                width: 30px;
+                border-radius: 10px;
+                margin-top: -10px;
+                margin-bottom: 10px;
+            }
+        </style>
+        <h:form>
+            <p:panel>
+                <p:steps activeIndex="#{createAccountController.index}" >
+                    <p:menuitem value="Type de compte" />
+                    <p:menuitem value="Paramètres du compte" />
+                    <p:menuitem value="Accés au compte" />
+                    <p:menuitem value="Confirmation" />
+                </p:steps>
+            </p:panel>
+
+            <p:dialog widgetVar="typeAcc" showEffect="slide" height="650" width="1670" resizable="false" position="245,200" visible="true" closable="false" showHeader="false">
+                <h:panelGrid columns="2" cellpadding="50">
+                    <p:commandButton value="Lier un compte existant" actionListener="#{createAccountController.indexUp}" style="height: 400px; width: 400px; margin-left: 250px; margin-top: 50px" styleClass="ui-priority-primary" onclick="PF('paramAccExistant').show();
+                            PF('diapo').show();" immediate="true"/>
+                    <p:commandButton value="Créer un nouveau compte" actionListener="#{createAccountController.indexUp}" style="height: 400px; width: 400px; margin-top: 50px" styleClass="ui-priority-primary" onclick="PF('paramAccNouveau').show();
+                            PF('diapo').show();" immediate="true"/>
+                </h:panelGrid>
+            </p:dialog>
+
+            <p:dialog widgetVar="paramAccNouveau" showEffect="slide" hideEffect="drop" height="650" width="800" resizable="false" position="245,200" visible="false" closable="false" showHeader="false">
+                <h:panelGrid columns="2" cellpadding="80">
+                    <h:outputText value="Nom du compte : "/>
+                    <h:inputText value = "#{createAccountController.name}" style="width: 200px; height: "/>
+                    <h:outputText value="Type de compte : "/>
+                    <h:inputText value = "#{createAccountController.type}" style="width: 200px; height: "/>                
+                    <p:commandButton value="Retour" style=" height: 100px; width: 150px; margin-left: 70px" styleClass="ui-priority-primary" onclick="PF('paramAccNouveau').hide();
+                            PF('diapo').hide();"/>
+                    <p:commandButton value="Suivant" style=" height: 100px; width: 150px; " styleClass="ui-priority-primary" onclick="PF('AccessNouveau').show();"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog widgetVar="paramAccExistant" showEffect="slide" hideEffect="drop" height="650" width="806" resizable="false" position="245,200" visible="false" closable="false" showHeader="false">
+                <h:panelGrid columns="2" cellpadding="50">
+                    <p:commandButton value="Retour" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;    " styleClass="ui-priority-primary" onclick="PF('paramAccExistant').hide();
+                            PF('diapo').hide();"/>
+                    <p:commandButton value="Suivant" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('AccessExist').show();"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog widgetVar="AccessNouveau" showEffect="slide" hideEffect="drop" height="650" width="807" resizable="false" position="245,200" visible="false" closable="false" showHeader="false">
+                <h:panelGrid columns="3" cellpadding="50">
+                    <p:pickList id="pickList" value="#{createAccountController.users}" var="users" itemLabel="#{users}" itemValue="#{users}"/>
+                    <h3>Veuillez selectionner les ayants-droit pour l'accés au compte créer.</h3>
+                    <p:commandButton value="Retour" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('AccessNouveau').hide();"/>
+                    <p:commandButton value="Suivant" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('ConfirmNouveau').show();"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog widgetVar="AccessExist" showEffect="slide" hideEffect="drop" height="650" width="807" resizable="false" position="245,200" visible="false" closable="false" showHeader="false">
+                <h:panelGrid columns="2" cellpadding="75">
+                    AccessExist
+                    <p:commandButton value="Retour" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('AccessExist').hide();"/>
+                    <p:commandButton value="Suivant" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('confirmExist').show();" />
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog widgetVar="ConfirmNouveau" showEffect="slide" hideEffect="drop" height="650" width="807" resizable="false" position="245,200" visible="false" closable="false" showHeader="false">
+                <h:panelGrid columns="2" cellpadding="75">
+                    <h:outputText value="Nom de compte : "/>
+                    <h:inputText value="#{createAccountController.name}"/>
+                    <h:outputText value="IBAN : "/>
+                    <h:inputText value="#{createAccountController.IBAN}"/>
+                    <h:outputText value="Type de compte : "/>
+                    <h:inputText value="#{createAccountController.type}"/>
+                    <p:commandButton value="Retour" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('ConfirmNouveau').hide();"/>
+                    <p:commandButton value="Confirmer" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog widgetVar="confirmExist" showEffect="slide" hideEffect="drop" height="650" width="807" resizable="false" position="245,200" visible="false" closable="false" showHeader="false">
+                <h:panelGrid columns="2" cellpadding="50">
+                    Confirm Exist
+                    <p:commandButton value="Retour" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary" onclick="PF('confirmExist').hide();"/>
+                    <p:commandButton value="Confirmer" actionListener="#{createAccountController.indexUp}" style=" height: 100px; width: 150px;" styleClass="ui-priority-primary"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog widgetVar="diapo" showEffect="slide" hideEffect="drop" height="650" width="865" resizable="false" position="1050,200" visible="false" closable="false" showHeader="false">
+                <p:contentFlow value="#{pubImageView.images}" var="image" style="height: 645px; width: 830px">
+                    <p:graphicImage name="images/logo/#{image}" styleClass="content" />
+                </p:contentFlow>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
+
+

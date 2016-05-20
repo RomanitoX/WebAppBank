@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:p="http://primefaces.org/ui">
+    <h:form>
+        <p:growl id="growl" sticky="false" showDetail="true" life="3000"/>
+        <h:body>
+            <p:menu>
+                <p:submenu label="Menu" style="color: #313b3f">
+                    <p:menuitem value="Synthèses des comptes" outcome="index"/>
+                    <p:menuitem value="Ajouter un compte" outcome="AccountCreation" />
+                    <p:menuitem value="Détails de l'utilisateur" outcome="UserDetails" />
+                </p:submenu>
+            </p:menu>
+        </h:body>
+    </h:form>
+
+</html>

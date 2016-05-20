@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <h:form>
+            <f:metadata>
+                <f:viewParam name="IBAN" value="#{operationController.IBAN}" />
+            </f:metadata>
+            <p:dataTable var="operation" value="#{operationController.current.operations}">
+                <f:facet name="header">
+                    Details du compte #{operationController.current.name}
+                </f:facet>
+                <p:column headerText="Opération">
+                    <h:outputText value="#{operation.wording}" />
+                </p:column>
+                <p:column headerText="Tiers">
+                    <h:outputText value="#{operation.third}" />
+                </p:column>
+                <p:column headerText="Montant">
+                    <h:outputText value="#{operation.amount} #{operationController.currency}" />
+                </p:column>
+                <p:column headerText="Date">
+                    <h:outputText value="#{operation.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <f:facet name="footer">
+                    Vous avez #{operationController.current.operations.size()} opérations effectuées.
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
